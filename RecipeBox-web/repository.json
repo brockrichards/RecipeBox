@@ -1,0 +1,26 @@
+{
+    "version": "1.0",
+    "service": "RecipeBox-web",
+    "repository": {
+        "name": "Acme.RecipeBox"
+    },
+    "docker": {
+        "buildImage": "cortside/ng-cli:16-alpine",
+        "runtimeImage": "cortside/nginx:1.24-alpine",
+        "image": "cortside/RecipeBox-web",
+        "artifactDirectory": "dist/RecipeBox-web"
+    },
+    "build": {
+        "configuration": "Debug",
+        "publishableProject": "",
+        "nugetfeed": "https://api.nuget.org/v3/index.json"
+    },
+    "sonar": {
+        "organization": "cortside",
+        "key": "acme_RecipeBox-web",
+        "host": "https://sonarcloud.io",
+        "token": "",
+        "propertyPrefix": "-D"
+    }
+}
+

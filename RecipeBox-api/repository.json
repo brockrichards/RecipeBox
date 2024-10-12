@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "service": "RecipeBox-api",
+  "repository": {
+    "name": "RecipeBox"
+  },
+  "database": {
+    "name": "RecipeBox",
+    "dbContext": "DatabaseContext",
+    "dbContextProject": "src/RecipeBox.Data",
+    "startupProject": "src/RecipeBox.WebApi",
+    "triggers": {
+      "excludeTables": [
+        "__EFMigrationsHistory",
+        "AuditLog",
+        "AuditLogTransaction",
+        "Outbox"
+      ]
+    }
+  },
+  "docker": {
+    "buildImage": "cortside/dotnet-sdk:8.0-alpine",
+    "runtimeImage": "cortside/dotnet-runtime:8.0-alpine",
+    "image": "cortside/ShoppingCart-api",
+    "executable": "RecipeBox.WebApi"
+  },
+  "build": {
+    "configuration": "Debug",
+    "publishableProject": "RecipeBox.WebApi",
+    "nugetfeed": "https://api.nuget.org/v3/index.json"
+  },
+  "sonar": {
+    "organization": "digitalfoundry",
+    "key": "acme_RecipeBox-api",
+    "host": "https://sonarcloud.io",
+    "token": "",
+    "propertyPrefix": "/d:"
+  }
+}
+
