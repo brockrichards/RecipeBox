@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeBox.Data;
 
@@ -11,9 +12,11 @@ using RecipeBox.Data;
 namespace RecipeBox.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241014175126_UpdateEntityRelationships")]
+    partial class UpdateEntityRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,22 +268,8 @@ namespace RecipeBox.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeIngredientId"));
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Date and time entity was created");
-
-                    b.Property<Guid>("CreatedSubjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int?>("IngredientId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Date and time entity was last modified");
-
-                    b.Property<Guid>("LastModifiedSubjectId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
@@ -294,11 +283,7 @@ namespace RecipeBox.Data.Migrations
 
                     b.HasKey("RecipeIngredientId");
 
-                    b.HasIndex("CreatedSubjectId");
-
                     b.HasIndex("IngredientId");
-
-                    b.HasIndex("LastModifiedSubjectId");
 
                     b.HasIndex("RecipeId");
 
@@ -318,20 +303,6 @@ namespace RecipeBox.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeTagId"));
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Date and time entity was created");
-
-                    b.Property<Guid>("CreatedSubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Date and time entity was last modified");
-
-                    b.Property<Guid>("LastModifiedSubjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int?>("RecipeId")
                         .HasColumnType("int");
 
@@ -343,10 +314,6 @@ namespace RecipeBox.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("RecipeTagId");
-
-                    b.HasIndex("CreatedSubjectId");
-
-                    b.HasIndex("LastModifiedSubjectId");
 
                     b.HasIndex("RecipeId");
 
@@ -419,12 +386,6 @@ namespace RecipeBox.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedSubjectSubjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -433,12 +394,6 @@ namespace RecipeBox.Data.Migrations
 
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifiedSubjectSubjectId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -474,10 +429,6 @@ namespace RecipeBox.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("CreatedSubjectSubjectId");
-
-                    b.HasIndex("LastModifiedSubjectSubjectId");
 
                     b.ToTable("User", "dbo", t =>
                         {
@@ -527,51 +478,23 @@ namespace RecipeBox.Data.Migrations
 
             modelBuilder.Entity("RecipeBox.Domain.Entities.RecipeIngredient", b =>
                 {
-                    b.HasOne("Cortside.AspNetCore.Auditable.Entities.Subject", "CreatedSubject")
-                        .WithMany()
-                        .HasForeignKey("CreatedSubjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("RecipeBox.Domain.Entities.Ingredient", "Ingredient")
                         .WithMany()
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Cortside.AspNetCore.Auditable.Entities.Subject", "LastModifiedSubject")
-                        .WithMany()
-                        .HasForeignKey("LastModifiedSubjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
 
                     b.HasOne("RecipeBox.Domain.Entities.Recipe", "Recipe")
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("CreatedSubject");
-
                     b.Navigation("Ingredient");
-
-                    b.Navigation("LastModifiedSubject");
 
                     b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("RecipeBox.Domain.Entities.RecipeTag", b =>
                 {
-                    b.HasOne("Cortside.AspNetCore.Auditable.Entities.Subject", "CreatedSubject")
-                        .WithMany()
-                        .HasForeignKey("CreatedSubjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Cortside.AspNetCore.Auditable.Entities.Subject", "LastModifiedSubject")
-                        .WithMany()
-                        .HasForeignKey("LastModifiedSubjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("RecipeBox.Domain.Entities.Recipe", "Recipe")
                         .WithMany("RecipeTags")
                         .HasForeignKey("RecipeId")
@@ -581,10 +504,6 @@ namespace RecipeBox.Data.Migrations
                         .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("CreatedSubject");
-
-                    b.Navigation("LastModifiedSubject");
 
                     b.Navigation("Recipe");
 
@@ -604,23 +523,6 @@ namespace RecipeBox.Data.Migrations
                         .HasForeignKey("LastModifiedSubjectId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("CreatedSubject");
-
-                    b.Navigation("LastModifiedSubject");
-                });
-
-            modelBuilder.Entity("RecipeBox.Domain.Entities.User", b =>
-                {
-                    b.HasOne("Cortside.AspNetCore.Auditable.Entities.Subject", "CreatedSubject")
-                        .WithMany()
-                        .HasForeignKey("CreatedSubjectSubjectId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Cortside.AspNetCore.Auditable.Entities.Subject", "LastModifiedSubject")
-                        .WithMany()
-                        .HasForeignKey("LastModifiedSubjectSubjectId")
-                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CreatedSubject");
 

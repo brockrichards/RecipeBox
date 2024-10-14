@@ -32,7 +32,7 @@ namespace RecipeBox.DomainService.Tests {
             await databaseContext.SaveChangesAsync();
 
             // Assert
-            Assert.True(databaseContext.Recipes.Any(x => x.Name == recipe.Name));
+            Assert.True(databaseContext.Recipes.Any(x => x.Title == recipe.Title));
         }
     }
 }

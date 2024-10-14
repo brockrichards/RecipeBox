@@ -111,7 +111,6 @@ BEGIN
         CONSTRAINT [FK_Recipe_Subject_CreatedSubjectId] FOREIGN KEY ([CreatedSubjectId]) REFERENCES [dbo].[Subject] ([SubjectId]),
         CONSTRAINT [FK_Recipe_Subject_LastModifiedSubjectId] FOREIGN KEY ([LastModifiedSubjectId]) REFERENCES [dbo].[Subject] ([SubjectId])
     );
-    DECLARE @description AS sql_variant;
     SET @description = N'Recipes';
     EXEC sp_addextendedproperty 'MS_Description', @description, 'SCHEMA', N'dbo', 'TABLE', N'Recipe';
     SET @description = N'Primary Key';
@@ -142,7 +141,6 @@ BEGIN
         CONSTRAINT [FK_Ingredient_Subject_CreatedSubjectId] FOREIGN KEY ([CreatedSubjectId]) REFERENCES [dbo].[Subject] ([SubjectId]),
         CONSTRAINT [FK_Ingredient_Subject_LastModifiedSubjectId] FOREIGN KEY ([LastModifiedSubjectId]) REFERENCES [dbo].[Subject] ([SubjectId])
     );
-    DECLARE @description AS sql_variant;
     SET @description = N'Ingredients that belong to an Recipe';
     EXEC sp_addextendedproperty 'MS_Description', @description, 'SCHEMA', N'dbo', 'TABLE', N'Ingredient';
     SET @description = N'Primary Key';
@@ -175,7 +173,6 @@ BEGIN
         CONSTRAINT [FK_Tags_Subject_CreatedSubjectId] FOREIGN KEY ([CreatedSubjectId]) REFERENCES [dbo].[Subject] ([SubjectId]),
         CONSTRAINT [FK_Tags_Subject_LastModifiedSubjectId] FOREIGN KEY ([LastModifiedSubjectId]) REFERENCES [dbo].[Subject] ([SubjectId])
     );
-    DECLARE @description AS sql_variant;
     SET @description = N'Date and time entity was created';
     EXEC sp_addextendedproperty 'MS_Description', @description, 'SCHEMA', N'dbo', 'TABLE', N'Tags', 'COLUMN', N'CreatedDate';
     SET @description = N'Date and time entity was last modified';

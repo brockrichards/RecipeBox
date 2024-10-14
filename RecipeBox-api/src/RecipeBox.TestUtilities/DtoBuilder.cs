@@ -12,8 +12,8 @@ namespace RecipeBox.TestUtilities {
 
         public static RecipeDto GetRecipeDto() {
             return new RecipeDto() {
-                Tags = [],
-                Ingredients = []
+                RecipeTags = [],
+                RecipeIngredients = []
             };
         }
     }

@@ -1,7 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using Cortside.AspNetCore;
 using Cortside.AspNetCore.AccessControl;
-using Cortside.AspNetCore.ApplicationInsights;
 using Cortside.AspNetCore.Auditable;
 using Cortside.AspNetCore.Auditable.Entities;
 using Cortside.AspNetCore.Builder;
@@ -10,7 +9,6 @@ using Cortside.AspNetCore.EntityFramework;
 using Cortside.AspNetCore.Filters;
 using Cortside.AspNetCore.Swagger;
 using Cortside.Health;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -62,11 +60,6 @@ namespace RecipeBox.WebApi {
         public void ConfigureServices(IServiceCollection services) {
             // setup global default json serializer settings
             JsonConvert.DefaultSettings = JsonNetUtility.GlobalDefaultSettings;
-
-            // add ApplicationInsights telemetry
-            var serviceName = Configuration["Service:Name"];
-            var config = Configuration.GetSection("ApplicationInsights").Get<ApplicationInsightsServiceOptions>();
-            services.AddApplicationInsights(serviceName, config);
 
             // add database context with interfaces
             services.AddDatabaseContext<IDatabaseContext, DatabaseContext>(Configuration);

@@ -5,22 +5,22 @@ using Cortside.AspNetCore.Auditable.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace RecipeBox.Domain.Entities {
-    public class Tag : AuditableEntity {
-        protected Tag() { }
+    public class Unit : AuditableEntity {
+        protected Unit() { }
 
-        public Tag(string name) {
+        public Unit(string name) {
             Name = name;
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TagId { get; private set; }
+        public int UnitId { get; private set; }
 
         [Comment("Public unique identifier")]
-        public Guid TagResourceId { get; private set; }
+        public Guid UnitResourceId { get; private set; }
 
         [StringLength(50)]
-        [Comment("Tag name")]
+        [Comment("Unit name")]
         public string Name { get; private set; }
 
         /// <summary>

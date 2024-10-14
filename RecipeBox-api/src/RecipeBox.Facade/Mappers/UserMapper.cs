@@ -21,10 +21,10 @@ namespace RecipeBox.Facade.Mappers {
                 UserResourceId = entity.UserResourceId,
                 UserName = entity.UserName,
                 Email = entity.Email,
-                //CreatedDate = entity.CreatedDate,
-                //LastModifiedDate = entity.LastModifiedDate,
-                //CreatedSubject = subjectMapper.MapToDto(entity.CreatedSubject),
-                //LastModifiedSubject = subjectMapper.MapToDto(entity.LastModifiedSubject),
+                CreatedDate = entity.CreatedDate,
+                LastModifiedDate = entity.LastModifiedDate,
+                CreatedSubject = subjectMapper.MapToDto(entity.CreatedSubject),
+                LastModifiedSubject = subjectMapper.MapToDto(entity.LastModifiedSubject),
             };
         }
 

@@ -18,13 +18,8 @@ namespace RecipeBox.Data.Repositories {
 
         public async Task<PagedList<Recipe>> SearchAsync(IRecipeSearch model) {
             var recipes = (IQueryable<Recipe>)context.Recipes
-                .Include(x => x.Tags)
                 .Include(x => x.CreatedSubject)
-                .Include(x => x.LastModifiedSubject)
-                .Include(x => x.Ingredients)
-                    .ThenInclude(x => x.CreatedSubject)
-                .Include(x => x.Ingredients)
-                    .ThenInclude(x => x.LastModifiedSubject);
+                .Include(x => x.LastModifiedSubject);
 
             recipes = model.Build(recipes);
             var result = new PagedList<Recipe> {
@@ -47,13 +42,8 @@ namespace RecipeBox.Data.Repositories {
 
         public async Task<Recipe> GetAsync(Guid id) {
             var recipe = await context.Recipes
-                .Include(x => x.Tags)
                 .Include(x => x.CreatedSubject)
                 .Include(x => x.LastModifiedSubject)
-                .Include(x => x.Ingredients)
-                    .ThenInclude(x => x.CreatedSubject)
-                .Include(x => x.Ingredients)
-                    .ThenInclude(x => x.LastModifiedSubject)
                 .FirstOrDefaultAsync(o => o.RecipeResourceId == id).ConfigureAwait(false);
 
             return recipe;

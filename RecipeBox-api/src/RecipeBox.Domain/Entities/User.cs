@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
+using Cortside.AspNetCore.Auditable.Entities;
 using Cortside.Common.Messages;
 using Cortside.Common.Messages.MessageExceptions;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,14 @@ namespace RecipeBox.Domain.Entities {
         public int UserId { get; private set; }
 
         public Guid UserResourceId { get; private set; }
+
+        public Subject CreatedSubject { get; private set; }
+
+        public DateTime CreatedDate {  get; private set; }
+
+        public Subject LastModifiedSubject { get; private set; }
+
+        public DateTime LastModifiedDate { get; private set; }
 
         public void Update(string userName, string email, string password) {
             var messages = new MessageList();

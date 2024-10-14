@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Cortside.AspNetCore.Auditable" Version="6.3.266" />
     <PackageReference Include="Cortside.Common.Validation" Version="6.3.458" />
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
