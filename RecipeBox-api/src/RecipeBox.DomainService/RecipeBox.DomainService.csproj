@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RecipeBox.Data\RecipeBox.Data.csproj" />
-    <ProjectReference Include="..\RecipeBox.Domain\RecipeBox.Domain.csproj" />
     <ProjectReference Include="..\RecipeBox.Dto\RecipeBox.Dto.csproj" />
   </ItemGroup>
 </Project>

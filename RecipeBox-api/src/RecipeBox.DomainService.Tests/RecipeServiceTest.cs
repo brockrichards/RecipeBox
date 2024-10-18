@@ -13,8 +13,8 @@ namespace RecipeBox.DomainService.Tests {
 
         public RecipeServiceTest() : base() {
             databaseContext = GetDatabaseContext();
-            var RecipeRepository = new RecipeRepository(databaseContext);
-            Service = new RecipeService(RecipeRepository, NullLogger<RecipeService>.Instance);
+            var recipeRepository = new RecipeRepository(databaseContext);
+            Service = new RecipeService(NullLogger<RecipeService>.Instance, recipeRepository);
 
             var name = Guid.NewGuid().ToString();
             var User = EntityBuilder.GetUserEntity();

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using RecipeBox.Enumerations;
 
 namespace RecipeBox.WebApi.Models.Requests {
     /// <summary>
@@ -13,6 +14,15 @@ namespace RecipeBox.WebApi.Models.Requests {
         /// </value>
         [Required]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tag category.
+        /// </summary>
+        /// <value>
+        /// The category.
+        /// </value>
+        [Required]
+        public CategoryType Category { get; set; }
     }
 }
 

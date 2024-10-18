@@ -1,12 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System;
-using Cortside.AspNetCore.Auditable.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace RecipeBox.Domain.Entities {
-    public class RecipeTag : AuditableEntity {
-        public RecipeTag() { }
+    public class RecipeTag {
+        protected RecipeTag() {
+            // Required by EF as it doesn't know about User
+        }
+        public RecipeTag(Recipe recipe, Tag tag) {
+            Recipe = recipe;
+            Tag = tag;
+        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

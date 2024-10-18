@@ -9,6 +9,7 @@ namespace RecipeBox.Data {
         DbSet<Recipe> Recipes { get; set; }
         DbSet<Ingredient> Ingredients { get; set; }
         DbSet<Tag> Tags { get; set; }
+        DbSet<Unit> Units { get; set; }
 
         void RemoveRange(IEnumerable<object> entities);
         EntityEntry Remove(object entity);

@@ -14,10 +14,12 @@ namespace RecipeBox.Domain.Entities {
             // Required by EF as it doesn't know about User
         }
 
-        public Recipe(string name, string description, List<Tag> tags, List<Ingredient> ingredients) {
+        public Recipe(string title, string description, bool isPublic, string imageUrl) {
             RecipeResourceId = Guid.NewGuid();
-            Title = name;
+            Title = title;
             Description = description;
+            IsPublic = isPublic;
+            ImageUrl = imageUrl;
         }
 
         [Key]
@@ -28,13 +30,28 @@ namespace RecipeBox.Domain.Entities {
         [Comment("Public unique identifier")]
         public Guid RecipeResourceId { get; private set; }
 
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public bool IsPublic { get; set; }
-        public string ImageUrl { get; set; } // URL for the recipe's image
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public bool IsPublic { get; private set; }
+        public string ImageUrl { get; private set; } // URL for the recipe's image
 
         public ICollection<RecipeIngredient> RecipeIngredients { get; set; }
         public ICollection<RecipeTag> RecipeTags { get; set; }
+
+        public void AddIngredients(List<Ingredient> ingredients) {
+            throw new NotImplementedException();
+        }
+
+        public void AddTags(List<Tag> tags) {
+            throw new NotImplementedException();
+        }
+
+        public void Update(string title, string description, bool isPublic, string imageUrl) {
+            Title = title;
+            Description = description;
+            IsPublic = isPublic;
+            ImageUrl = imageUrl;
+        }
     }
 }
 

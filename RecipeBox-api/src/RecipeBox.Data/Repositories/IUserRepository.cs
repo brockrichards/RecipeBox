@@ -6,9 +6,11 @@ using RecipeBox.Domain.Entities;
 
 namespace RecipeBox.Data.Repositories {
     public interface IUserRepository {
-        Task<User> AddAsync(User User);
+        Task<PagedList<User>> SearchAsync(IUserSearch model);
+        Task<User> AddAsync(User user);
         Task<User> GetAsync(Guid id);
-        Task<PagedList<User>> SearchAsync(UserSearch model);
+        void Update(User user);
+        void Delete(User user);
     }
 }
 

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using RecipeBox.Data;
-using RecipeBox.Enumerations;
 using RecipeBox.TestUtilities;
 using RecipeBox.WebApi.Models.Responses;
 using Xunit;
@@ -95,7 +94,6 @@ namespace RecipeBox.WebApi.IntegrationTests.Tests {
             order.User.UserResourceId.Should().NotBeEmpty();
             order.RecipeResourceId.Should().NotBeEmpty();
             order.Items.Count.Should().Be(0);
-            order.Status.Should().Be(RecipeStatus.Created);
 
             // act
             var itemRequest = ModelBuilder.GetCreateIngredientModel();
@@ -117,7 +115,6 @@ namespace RecipeBox.WebApi.IntegrationTests.Tests {
             order.User.UserResourceId.Should().NotBeEmpty();
             order.RecipeResourceId.Should().NotBeEmpty();
             order.Items.Count.Should().Be(1);
-            order.Status.Should().Be(RecipeStatus.Created);
         }
 
         [Fact]

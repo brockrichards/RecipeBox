@@ -26,12 +26,7 @@ namespace RecipeBox.Facade.Mappers {
             }
 
             return new RecipeTagDto {
-                CreatedDate = entity.CreatedDate,
-                CreatedSubject = subjectMapper.MapToDto(entity.CreatedSubject),
-                LastModifiedDate = entity.LastModifiedDate,
-                LastModifiedSubject = subjectMapper.MapToDto(entity.LastModifiedSubject),
-                RecipeTagId = entity.RecipeTagId,
-                RecipeTagResourceId = entity.RecipeTagResourceId,
+                TagResourceId = entity.Tag.TagResourceId,
             };
         }
     }

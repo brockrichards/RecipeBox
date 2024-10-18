@@ -4,9 +4,9 @@ using RecipeBox.Dto;
 
 namespace RecipeBox.Facade.Mappers {
     public class RecipeIngredientMapper {
-        private readonly SubjectMapper subjectMapper;
-        public RecipeIngredientMapper(SubjectMapper subjectMapper) {
-            this.subjectMapper = subjectMapper;
+        private readonly UnitMapper unitMapper;
+        public RecipeIngredientMapper(UnitMapper unitMapper) {
+            this.unitMapper = unitMapper;
         }
         public List<RecipeIngredientDto> MapToDto(ICollection<RecipeIngredient> entities) {
             List<RecipeIngredientDto> dto = [];
@@ -25,12 +25,9 @@ namespace RecipeBox.Facade.Mappers {
             }
 
             return new RecipeIngredientDto {
-                CreatedDate = entity.CreatedDate,
-                CreatedSubject = subjectMapper.MapToDto(entity.CreatedSubject),
-                LastModifiedDate = entity.LastModifiedDate,
-                LastModifiedSubject = subjectMapper.MapToDto(entity.LastModifiedSubject),
-                RecipeIngredientId = entity.RecipeIngredientId,
-                RecipeIngredientResourceId = entity.RecipeIngredientResourceId,
+                IngredientResourceId = entity.Ingredient.IngredientResourceId,
+                Unit = unitMapper.MapToDto(entity.Unit),
+                Quantity = entity.Quantity,
             };
         }
     }

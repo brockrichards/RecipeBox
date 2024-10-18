@@ -8,6 +8,7 @@ using Cortside.Common.Security;
 using Cortside.DomainEvent.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using RecipeBox.Domain.Entities;
+using RecipeBox.Enumerations;
 
 namespace RecipeBox.Data {
     public class DatabaseContext : UnitOfWorkContext<Subject>, IDatabaseContext {
@@ -18,10 +19,17 @@ namespace RecipeBox.Data {
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Unit> Units { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasDefaultSchema("dbo");
             modelBuilder.AddDomainEventOutbox();
+            modelBuilder
+                .Entity<Tag>()
+                .Property(e => e.Category)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (CategoryType)Enum.Parse(typeof(CategoryType), v));
 
             SetDateTime(modelBuilder);
             SetCascadeDelete(modelBuilder);

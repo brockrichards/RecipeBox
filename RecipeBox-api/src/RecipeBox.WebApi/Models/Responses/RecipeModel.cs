@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Cortside.AspNetCore.Common.Models;
-using RecipeBox.Enumerations;
 
 namespace RecipeBox.WebApi.Models.Responses {
     /// <summary>
@@ -15,13 +14,6 @@ namespace RecipeBox.WebApi.Models.Responses {
         /// The order resource identifier.
         /// </value>
         public Guid RecipeResourceId { get; set; }
-        /// <summary>
-        /// Gets or sets the status.
-        /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
-        public RecipeStatus Status { get; set; }
         /// <summary>
         /// Gets or sets the User.
         /// </summary>

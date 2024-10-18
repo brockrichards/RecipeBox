@@ -8,8 +8,13 @@ namespace RecipeBox.Domain.Entities {
     [Table("Ingredient")]
     [Comment("Ingredients that belong to an Recipe")]
     public class Ingredient : AuditableEntity {
-        public Ingredient(string name) {
+        protected Ingredient() {
+            // Required by EF as it doesn't know about User
+        }
+
+        public Ingredient(string name, string description) {
             Name = name;
+            Description = description;
         }
 
         [Key]
@@ -21,24 +26,16 @@ namespace RecipeBox.Domain.Entities {
         public Guid IngredientResourceId { get; private set; }
 
         /// <summary>
-        /// FK to Recipe that the Ingredient belongs to
-        /// </summary>
-        /// <remarks>RecipeId added explicitly here so that it does not become nullable when inferred by relationships</remarks>
-        [Comment("FK to Recipe that the Ingredient belongs to")]
-        [ForeignKey(nameof(RecipeId))]
-        public int RecipeId { get; private set; }
-
-        /// <summary>
         /// Name of the ingredient
         /// </summary>
         [Comment("Name of the ingredient")]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Description of the ingredient
         /// </summary>
         [Comment("Description of the ingredient")]
-        public string Description { get; private set; }
+        public string Description { get; set; }
     }
 }
 

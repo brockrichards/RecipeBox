@@ -13,6 +13,12 @@ namespace RecipeBox.WebApi.Models.Requests {
         /// </value>
         [Required]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Ingredient description
+        /// </summary>
+        public string Description { get; private set; }
+
     }
 }
 

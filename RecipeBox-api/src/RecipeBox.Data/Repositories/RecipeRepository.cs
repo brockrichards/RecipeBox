@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cortside.AspNetCore.Common.Paging;
@@ -16,8 +15,28 @@ namespace RecipeBox.Data.Repositories {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<Recipe> GetAsync(Guid id) {
+            return await context.Recipes.FirstOrDefaultAsync(r => r.RecipeResourceId == id).ConfigureAwait(false);
+        }
+
+        public async Task<Recipe> AddAsync(Recipe recipe) {
+            return (await context.Recipes.AddAsync(recipe).ConfigureAwait(false)).Entity;
+        }
+
+        public void Update(Recipe recipe) {
+            context.Recipes.Update(recipe);
+        }
+
+        public void Delete(Recipe recipe) {
+            context.Recipes.Remove(recipe);
+        }
+
         public async Task<PagedList<Recipe>> SearchAsync(IRecipeSearch model) {
             var recipes = (IQueryable<Recipe>)context.Recipes
+                .Include(x => x.RecipeIngredients)
+                    .ThenInclude(x => x.Ingredient)
+                .Include(x => x.RecipeTags)
+                    .ThenInclude(x => x.Tag)
                 .Include(x => x.CreatedSubject)
                 .Include(x => x.LastModifiedSubject);
 
@@ -35,22 +54,15 @@ namespace RecipeBox.Data.Repositories {
             return result;
         }
 
-        public async Task<Recipe> AddAsync(Recipe recipe) {
-            var entity = await context.Recipes.AddAsync(recipe);
-            return entity.Entity;
+        public async Task<RecipeIngredient> GetRecipeIngredientAsync(Recipe recipe, Guid ingredientResourceId, Guid unitResourceId, decimal quantity) {
+            var ingredient = await context.Ingredients.FirstOrDefaultAsync(i => i.IngredientResourceId == ingredientResourceId).ConfigureAwait(false);
+            var unit = await context.Units.FirstOrDefaultAsync(u => u.UnitResourceId == unitResourceId).ConfigureAwait(false);
+            return new RecipeIngredient(recipe, ingredient, unit, quantity);
         }
 
-        public async Task<Recipe> GetAsync(Guid id) {
-            var recipe = await context.Recipes
-                .Include(x => x.CreatedSubject)
-                .Include(x => x.LastModifiedSubject)
-                .FirstOrDefaultAsync(o => o.RecipeResourceId == id).ConfigureAwait(false);
-
-            return recipe;
-        }
-
-        public void RemoveIngredients(List<Ingredient> ingredientsToRemove) {
-            context.RemoveRange(ingredientsToRemove);
+        public async Task<RecipeTag> GetRecipeTagAsync(Recipe recipe, Guid tagResourceId) {
+            var tag = await context.Tags.FirstOrDefaultAsync(t=>t.TagResourceId == tagResourceId).ConfigureAwait(false);
+            return new RecipeTag(recipe, tag);
         }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cortside.AspNetCore.Common.Paging;
 using RecipeBox.Data.Searches;
@@ -10,7 +9,10 @@ namespace RecipeBox.Data.Repositories {
         Task<PagedList<Recipe>> SearchAsync(IRecipeSearch model);
         Task<Recipe> AddAsync(Recipe recipe);
         Task<Recipe> GetAsync(Guid id);
-        void RemoveIngredients(List<Ingredient> ingredientsToRemove);
+        void Update(Recipe recipe);
+        void Delete(Recipe recipe);
+        Task<RecipeIngredient> GetRecipeIngredientAsync(Recipe recipe, Guid ingredientResourceId, Guid unitResourceId, decimal quantity);
+        Task<RecipeTag> GetRecipeTagAsync(Recipe recipe, Guid tagResourceId);
     }
 }
 

@@ -14,7 +14,7 @@ namespace RecipeBox.Data.Repositories {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<PagedList<User>> SearchAsync(UserSearch model) {
+        public async Task<PagedList<User>> SearchAsync(IUserSearch model) {
             var Users = model.Build(context.Users);
             var result = new PagedList<User> {
                 PageNumber = model.PageNumber,
@@ -29,13 +29,21 @@ namespace RecipeBox.Data.Repositories {
             return result;
         }
 
-        public async Task<User> AddAsync(User User) {
-            var entity = await context.Users.AddAsync(User);
+        public async Task<User> AddAsync(User user) {
+            var entity = await context.Users.AddAsync(user);
             return entity.Entity;
         }
 
         public Task<User> GetAsync(Guid id) {
             return context.Users.FirstOrDefaultAsync(o => o.UserResourceId == id);
+        }
+
+        public void Update(User user) {
+            context.Users.Update(user);
+        }
+
+        public void Delete(User user) {
+            context.Remove(user);
         }
     }
 }

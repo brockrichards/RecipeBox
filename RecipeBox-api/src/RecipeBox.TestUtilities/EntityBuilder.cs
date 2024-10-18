@@ -12,12 +12,19 @@ namespace RecipeBox.TestUtilities {
             return new Tag(RandomValues.CreateRandomString());
         }
 
-        public static Recipe GetRecipeEntity(string name = null, string description = null, List<Ingredient> ingredients = null, List<Tag> tags = null) {
+        public static Recipe GetRecipeEntity(string name = null, string description = null, bool isPublic = false, string imageUrl = null, List<Ingredient> ingredients = null, List<Tag> tags = null) {
             name ??= RandomValues.CreateRandomString();
             description ??= RandomValues.CreateRandomString();
             ingredients ??= new List<Ingredient> { GetIngredientEntity() };
             tags ??= new List<Tag> { GetTagEntity() };
-            return new Recipe(name, description, tags, ingredients);
+            Recipe recipe = new Recipe(name, description, isPublic, imageUrl);
+            if(ingredients != null) {
+                recipe.AddIngredients(ingredients);
+            }
+            if (tags != null) {
+                recipe.AddTags(tags);
+            }
+            return recipe;
         }
 
         public static Ingredient GetIngredientEntity(string name = null) {

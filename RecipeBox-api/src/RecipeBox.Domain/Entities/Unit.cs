@@ -5,11 +5,16 @@ using Cortside.AspNetCore.Auditable.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace RecipeBox.Domain.Entities {
+    [Table("Unit")]
+    [Comment("Units of measurement for Ingredients")]
     public class Unit : AuditableEntity {
-        protected Unit() { }
+        protected Unit() {
+            // Required by EF as it doesn't know about User
+        }
 
-        public Unit(string name) {
+        public Unit(string name, string description) {
             Name = name;
+            Description = description;
         }
 
         [Key]
@@ -23,12 +28,16 @@ namespace RecipeBox.Domain.Entities {
         [Comment("Unit name")]
         public string Name { get; private set; }
 
+        [StringLength(250)]
+        [Comment("Unit description")]
+        public string Description { get; private set; }
         /// <summary>
-        /// Updates the specified tag.
+        /// Updates the specified unit.
         /// </summary>
-        /// <param name="name">The tag name.</param>
-        internal void Update(string name) {
+        /// <param name="name">The unit name.</param>
+        public void Update(string name, string description) {
             Name = name;
+            Description = description;
         }
     }
 }

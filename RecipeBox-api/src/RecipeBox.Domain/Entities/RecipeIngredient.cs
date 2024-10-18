@@ -1,12 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System;
-using Cortside.AspNetCore.Auditable.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace RecipeBox.Domain.Entities {
-    public class RecipeIngredient : AuditableEntity {
-        public RecipeIngredient() { }
+    public class RecipeIngredient {
+        protected RecipeIngredient() {
+            // Required by EF as it doesn't know about User
+        }
+
+        public RecipeIngredient(Recipe recipe, Ingredient ingredient, Unit unit, decimal quantity) {
+            Recipe = recipe;
+            Ingredient = ingredient;
+            Unit = unit;
+            Quantity = quantity;
+        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,7 +24,8 @@ namespace RecipeBox.Domain.Entities {
         public Guid RecipeIngredientResourceId { get; private set; }
 
         public Recipe Recipe { get; private set; }
-        public Ingredient Ingredient { get; private set;}
-        public decimal Quantity {  get; private set; }
+        public Ingredient Ingredient { get; private set; }
+        public Unit Unit { get; private set; }
+        public decimal Quantity { get; private set; }
     }
 }

@@ -1,43 +1,19 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+#pragma warning disable CS1591 // Missing XML comments
 
 namespace RecipeBox.WebApi.Models.Requests {
     /// <summary>
     /// Request information to create a new recipe
     /// </summary>
     public class CreateRecipeModel {
-        /// <summary>
-        /// Gets or sets the Name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        [Required]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
+        public string Title { get; set; }
         public string Description { get; set; }
+        public bool IsPublic { get; set; }
+        public string ImageUrl { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Tag.
-        /// </summary>
-        /// <value>
-        /// The Tag.
-        /// </value>
-        public TagModel Tag { get; set; }
+        public List<IngredientModel> RecipeIngredients { get; set; }
+        public List<TagModel> RecipeTags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the ingredients.
-        /// </summary>
-        /// <value>
-        /// The ingredients.
-        /// </value>
-        public List<CreateIngredientModel> Ingredients { get; set; }
     }
 }
 
